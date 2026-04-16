@@ -10,8 +10,19 @@ import aiRouter from './routes/aiRoutes.js';
 //initialize express app
 const app=express()
 
-//connect database
-await connectDB();
+const PORT= process.env.PORT || 3000;
+const startServer = async () => {
+    await connectDB();
+
+    app.listen(PORT, () => {
+        console.log(`server running on port ${PORT}`);
+    });
+};
+
+startServer();
+
+// //connect database
+// await connectDB();
 
 //middleware
 app.use(cors());
@@ -23,5 +34,5 @@ app.use('/api/owner',ownerRouter)
 app.use('/api/bookings',bookingRouter)
 app.use('/api/ai',aiRouter)
 
-const PORT= process.env.PORT || 3000;
-app.listen(PORT,()=>console.log(`server running on port ${PORT}`))
+// const PORT= process.env.PORT || 3000;
+// app.listen(PORT,()=>console.log(`server running on port ${PORT}`))
